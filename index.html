@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic AI Prompt Evaluator · Stage 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Animated Background Grid -->
+    <div class="bg-grid" aria-hidden="true">
+        <div class="bg-grid-lines"></div>
+        <div class="bg-glow bg-glow-1"></div>
+        <div class="bg-glow bg-glow-2"></div>
+        <div class="bg-glow bg-glow-3"></div>
+    </div>
+
+    <!-- Floating Particles -->
+    <div class="particles" aria-hidden="true">
+        <span class="particle"></span><span class="particle"></span>
+        <span class="particle"></span><span class="particle"></span>
+        <span class="particle"></span><span class="particle"></span>
+        <span class="particle"></span><span class="particle"></span>
+        <span class="particle"></span><span class="particle"></span>
+        <span class="particle"></span><span class="particle"></span>
+    </div>
+
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-badge">Stage 3 of 3</div>
+            <h1 class="header-title">
+                <span class="title-icon">🤖</span>
+                Agentic AI Prompt Evaluator
+            </h1>
+            <p class="header-subtitle">Write your own prompt and have it evaluated</p>
+        </header>
+
+        <!-- Intro Section -->
+        <section class="intro-card glass-card">
+            <div class="intro-icon">🎓</div>
+            <div class="intro-content">
+                <h2>Welcome to the final stage!</h2>
+                <p>
+                    You've learned to identify bad prompts and discovered the building blocks of a good prompt.
+                    Now it's your turn: <strong>Write your own Agentic AI Prompt</strong> and have it evaluated by our evaluator!
+                </p>
+                <div class="stage-progress">
+                    <div class="stage completed">
+                        <div class="stage-dot">✓</div>
+                        <span>Stage 1</span>
+                        <small>Negative Examples</small>
+                    </div>
+                    <div class="stage-connector completed"></div>
+                    <div class="stage completed">
+                        <div class="stage-dot">✓</div>
+                        <span>Stage 2</span>
+                        <small>Prompt Anatomy</small>
+                    </div>
+                    <div class="stage-connector active"></div>
+                    <div class="stage active">
+                        <div class="stage-dot">3</div>
+                        <span>Stage 3</span>
+                        <small>Your Own Prompt</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prompt Input Section -->
+        <section class="prompt-section glass-card">
+            <div class="section-header">
+                <h2><span class="section-icon">✍️</span> Your Agentic AI Prompt</h2>
+                <p class="section-desc">Write a complete prompt that includes all the important building blocks.</p>
+            </div>
+
+            <div class="textarea-wrapper">
+                <div class="textarea-topbar">
+                    <div class="topbar-dots">
+                        <span class="dot dot-red"></span>
+                        <span class="dot dot-yellow"></span>
+                        <span class="dot dot-green"></span>
+                    </div>
+                    <span class="topbar-label">prompt.txt</span>
+                    <span class="char-count" id="charCount">0 characters</span>
+                </div>
+                <textarea
+                    id="promptInput"
+                    placeholder="Write your Agentic AI Prompt here...&#10;&#10;Tip: Think about Role, Tools, Guardrails, Abort Conditions, ReAct Format, and Error Handling."
+                    spellcheck="false"
+                ></textarea>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" id="btnEvaluate" disabled>
+                    <span class="btn-icon">🔍</span>
+                    <span class="btn-text">Evaluate Prompt</span>
+                    <span class="btn-loader" aria-hidden="true"></span>
+                </button>
+                <button class="btn btn-secondary" id="btnExample">
+                    <span class="btn-icon">📋</span>
+                    <span class="btn-text">Load Example Prompt</span>
+                </button>
+                <button class="btn btn-ghost" id="btnReset">
+                    <span class="btn-icon">🔄</span>
+                    <span class="btn-text">Reset</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Progress Bar (hidden until evaluation) -->
+        <section class="progress-section" id="progressSection">
+            <div class="progress-header">
+                <span class="progress-label">Analyzing...</span>
+                <span class="progress-value" id="progressValue">0 / 6</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </section>
+
+        <!-- Results Section (hidden until evaluation) -->
+        <section class="results-section" id="resultsSection">
+
+            <!-- Score Badge -->
+            <div class="score-badge-container" id="scoreBadgeContainer">
+                <div class="score-badge" id="scoreBadge">
+                    <div class="score-emoji" id="scoreEmoji"></div>
+                    <div class="score-number" id="scoreNumber"></div>
+                    <div class="score-label" id="scoreLabel"></div>
+                    <div class="score-sublabel" id="scoreSublabel"></div>
+                </div>
+            </div>
+
+            <!-- Criteria Cards -->
+            <div class="criteria-grid" id="criteriaGrid">
+                <!-- Filled dynamically by JS -->
+            </div>
+
+            <!-- Retry CTA -->
+            <div class="retry-cta" id="retryCta">
+                <p>Improve your prompt based on the feedback and try again!</p>
+                <button class="btn btn-primary" id="btnRetry">
+                    <span class="btn-icon">🚀</span>
+                    <span class="btn-text">Evaluate Again</span>
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <span class="footer-logo">EDUT</span>
+            <span class="footer-sep">·</span>
+            <span>EDUT Project · HHN · Agentic AI Course 2025</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
